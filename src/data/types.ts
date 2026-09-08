@@ -30,7 +30,7 @@ export interface Beneficiary {
   beneficiary_id: string;
   household_id: string;
   name: string;
-  sex: Sex;
+  sex: Sex | null;
   date_of_birth: string | null;
   age: number | null;
   age_group: AgeGroupKey | null;
