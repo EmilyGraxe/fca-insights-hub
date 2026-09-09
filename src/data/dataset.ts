@@ -57,7 +57,7 @@ function mulberry32(seed: number) {
 const rand = mulberry32(20260430);
 const rnd = () => rand();
 const int = (min: number, max: number) => Math.floor(rnd() * (max - min + 1)) + min;
-const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(rnd() * arr.length)];
+const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(rnd() * arr.length)] as T;
 const chance = (p: number) => rnd() < p;
 const pad = (n: number, w = 3) => String(n).padStart(w, "0");
 
@@ -69,14 +69,14 @@ for (let i = 11; i >= 0; i--) {
 }
 
 function dateInMonth(month: string) {
-  const [y, m] = month.split("-").map(Number);
+  const [y, m] = month.split("-").map(Number) as [number, number];
   const day = int(1, 27);
   return `${y}-${pad(m, 2)}-${pad(day, 2)}`;
 }
 function randomMonth(weightRecent = true) {
   if (!weightRecent) return pick(MONTHS);
   const i = Math.min(11, Math.floor(Math.pow(rnd(), 0.7) * 12));
-  return MONTHS[11 - i];
+  return MONTHS[11 - i] as string;
 }
 
 /* ---------------------------------------------------------------- locations */
@@ -214,7 +214,7 @@ for (const hh of households) {
   }
 }
 while (beneficiaries.length < TARGET_BENEFICIARIES) {
-  const hh = households[beneficiaries.length % households.length];
+  const hh = households[beneficiaries.length % households.length] as Household;
   beneficiaries.push(makeBeneficiary(hh, false));
   hh.household_size += 1;
 }
@@ -238,7 +238,7 @@ const programmes: Programme[] = PROGRAMME_SEED.map(([programme_name, sector, des
   programme_name,
   sector,
   description,
-  lead: STAFF[i % STAFF.length],
+  lead: STAFF[i % STAFF.length]!,
   start_date: "2024-01-01",
   end_date: i === 5 ? "2026-12-31" : "2027-06-30",
   status: i === 5 ? "Active" : "Active",
@@ -270,7 +270,7 @@ const PROJECT_SEED: Array<[string, number, string, number]> = [
 ];
 
 const projects: Project[] = PROJECT_SEED.map(([project_name, pIdx, start, locCount], i) => {
-  const programme = programmes[pIdx];
+  const programme = programmes[pIdx] as Programme;
   const locs: string[] = [];
   while (locs.length < locCount) {
     const l = pick(operationalLocations).location_id;
@@ -296,7 +296,7 @@ const projects: Project[] = PROJECT_SEED.map(([project_name, pIdx, start, locCou
     target_beneficiaries: int(45, 160),
     target_households: int(20, 70),
     location_ids: locs,
-    manager: STAFF[(i + 2) % STAFF.length],
+    manager: STAFF[(i + 2) % STAFF.length]!,
     objectives: [
       `Deliver ${programme.sector.toLowerCase()} interventions to targeted beneficiaries and households.`,
       "Track participation, completion and outcome results disaggregated by sex, age and disability.",
@@ -322,7 +322,7 @@ for (const project of projects) {
       activity_id: `ACT-${pad(aIdx, 3)}`,
       project_id: aIdx % 23 === 0 ? "" : project.project_id,
       programme_id: project.programme_id,
-      activity_name: `${type} - ${project.project_name.split(" - ")[0]} (${month})`,
+      activity_name: `${type} - ${project.project_name.split(" - ")[0] as string} (${month})`,
       activity_type: type,
       date: dateInMonth(month),
       location_id: pick(project.location_ids),
@@ -476,9 +476,9 @@ for (let v = 0; v < 34; v++) {
     project_id: project.project_id,
     location_id: pick(project.location_ids),
     monitor: pick(STAFF),
-    findings: FINDINGS[k],
-    recommendation: RECOMMENDATIONS[k],
-    action_point: RECOMMENDATIONS[k],
+    findings: FINDINGS[k]!,
+    recommendation: RECOMMENDATIONS[k]!,
+    action_point: RECOMMENDATIONS[k]!,
     status: chance(0.45) ? "Closed" : chance(0.6) ? "In progress" : "Open",
   });
 }
@@ -505,7 +505,7 @@ for (let f = 0; f < 46; f++) {
     category: pick(["Information request", "Service quality", "Access", "Selection criteria", "Appreciation"]),
     sentiment: chance(0.45) ? "Positive" : chance(0.6) ? "Neutral" : "Concern",
     status: chance(0.68) ? "Resolved" : "Open",
-    summary: FEEDBACK_SUMMARY[f % FEEDBACK_SUMMARY.length],
+    summary: FEEDBACK_SUMMARY[f % FEEDBACK_SUMMARY.length]!,
   });
 }
 
@@ -521,7 +521,16 @@ function field(
   help?: string,
   conditionalOn?: { field: string; equals: string },
 ): FormTemplate["fields"][number] {
-  return { id, label, type, section, required, options, help, conditionalOn };
+  return {
+    id,
+    label,
+    type,
+    section,
+    required,
+    ...(options ? { options } : {}),
+    ...(help ? { help } : {}),
+    ...(conditionalOn ? { conditionalOn } : {}),
+  };
 }
 
 const forms: FormTemplate[] = [
@@ -736,7 +745,7 @@ const users: User[] = [
   role: role as string,
   location_scope: scope as string,
   status: i === 8 ? "Active" : chance(0.92) ? "Active" : "Suspended",
-  last_active: dateInMonth(MONTHS[11]),
+  last_active: dateInMonth(MONTHS[11]!),
 }));
 
 const AUDIT_ACTIONS = ["Created", "Updated", "Approved", "Exported", "Merged", "Viewed restricted record", "Deleted draft"];
@@ -772,8 +781,8 @@ audit.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
 
 const duplicates: DuplicateCandidate[] = [];
 for (let i = 0; i < 7; i++) {
-  const a = beneficiaries[(i * 37 + 5) % beneficiaries.length];
-  const b = beneficiaries[(i * 53 + 11) % beneficiaries.length];
+  const a = beneficiaries[(i * 37 + 5) % beneficiaries.length]!;
+  const b = beneficiaries[(i * 53 + 11) % beneficiaries.length]!;
   if (a.beneficiary_id === b.beneficiary_id) continue;
   duplicates.push({
     id: `DUP-${pad(i + 1, 2)}`,
