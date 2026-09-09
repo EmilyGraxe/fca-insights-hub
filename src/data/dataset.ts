@@ -238,7 +238,7 @@ const programmes: Programme[] = PROGRAMME_SEED.map(([programme_name, sector, des
   programme_name,
   sector,
   description,
-  lead: STAFF[i % STAFF.length],
+  lead: STAFF[i % STAFF.length]!,
   start_date: "2024-01-01",
   end_date: i === 5 ? "2026-12-31" : "2027-06-30",
   status: i === 5 ? "Active" : "Active",
