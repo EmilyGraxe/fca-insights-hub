@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ActivitiesIndexRouteImport } from './routes/activities.index'
+import { Route as ActivitiesIdRouteImport } from './routes/activities.$id'
+import { Route as BeneficiariesIndexRouteImport } from './routes/beneficiaries.index'
+import { Route as BeneficiariesIdRouteImport } from './routes/beneficiaries.$id'
+import { Route as HouseholdsIndexRouteImport } from './routes/households.index'
+import { Route as HouseholdsIdRouteImport } from './routes/households.$id'
+import { Route as ProgrammesIndexRouteImport } from './routes/programmes.index'
+import { Route as ProgrammesIdRouteImport } from './routes/programmes.$id'
+import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
+import { Route as ProjectsIdRouteImport } from './routes/projects.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivitiesIndexRoute = ActivitiesIndexRouteImport.update({
+  id: '/activities/',
+  path: '/activities/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivitiesIdRoute = ActivitiesIdRouteImport.update({
+  id: '/activities/$id',
+  path: '/activities/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BeneficiariesIndexRoute = BeneficiariesIndexRouteImport.update({
+  id: '/beneficiaries/',
+  path: '/beneficiaries/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BeneficiariesIdRoute = BeneficiariesIdRouteImport.update({
+  id: '/beneficiaries/$id',
+  path: '/beneficiaries/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseholdsIndexRoute = HouseholdsIndexRouteImport.update({
+  id: '/households/',
+  path: '/households/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseholdsIdRoute = HouseholdsIdRouteImport.update({
+  id: '/households/$id',
+  path: '/households/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammesIndexRoute = ProgrammesIndexRouteImport.update({
+  id: '/programmes/',
+  path: '/programmes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammesIdRoute = ProgrammesIdRouteImport.update({
+  id: '/programmes/$id',
+  path: '/programmes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsIdRoute = ProjectsIdRouteImport.update({
+  id: '/projects/$id',
+  path: '/projects/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/services': typeof ServicesRoute
+  '/activities/$id': typeof ActivitiesIdRoute
+  '/beneficiaries/$id': typeof BeneficiariesIdRoute
+  '/households/$id': typeof HouseholdsIdRoute
+  '/programmes/$id': typeof ProgrammesIdRoute
+  '/projects/$id': typeof ProjectsIdRoute
+  '/activities/': typeof ActivitiesIndexRoute
+  '/beneficiaries/': typeof BeneficiariesIndexRoute
+  '/households/': typeof HouseholdsIndexRoute
+  '/programmes/': typeof ProgrammesIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/services': typeof ServicesRoute
+  '/activities/$id': typeof ActivitiesIdRoute
+  '/beneficiaries/$id': typeof BeneficiariesIdRoute
+  '/households/$id': typeof HouseholdsIdRoute
+  '/programmes/$id': typeof ProgrammesIdRoute
+  '/projects/$id': typeof ProjectsIdRoute
+  '/activities': typeof ActivitiesIndexRoute
+  '/beneficiaries': typeof BeneficiariesIndexRoute
+  '/households': typeof HouseholdsIndexRoute
+  '/programmes': typeof ProgrammesIndexRoute
+  '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/services': typeof ServicesRoute
+  '/activities/$id': typeof ActivitiesIdRoute
+  '/beneficiaries/$id': typeof BeneficiariesIdRoute
+  '/households/$id': typeof HouseholdsIdRoute
+  '/programmes/$id': typeof ProgrammesIdRoute
+  '/projects/$id': typeof ProjectsIdRoute
+  '/activities/': typeof ActivitiesIndexRoute
+  '/beneficiaries/': typeof BeneficiariesIndexRoute
+  '/households/': typeof HouseholdsIndexRoute
+  '/programmes/': typeof ProgrammesIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/services'
+    | '/activities/$id'
+    | '/beneficiaries/$id'
+    | '/households/$id'
+    | '/programmes/$id'
+    | '/projects/$id'
+    | '/activities/'
+    | '/beneficiaries/'
+    | '/households/'
+    | '/programmes/'
+    | '/projects/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/services'
+    | '/activities/$id'
+    | '/beneficiaries/$id'
+    | '/households/$id'
+    | '/programmes/$id'
+    | '/projects/$id'
+    | '/activities'
+    | '/beneficiaries'
+    | '/households'
+    | '/programmes'
+    | '/projects'
+  id:
+    | '__root__'
+    | '/'
+    | '/services'
+    | '/activities/$id'
+    | '/beneficiaries/$id'
+    | '/households/$id'
+    | '/programmes/$id'
+    | '/projects/$id'
+    | '/activities/'
+    | '/beneficiaries/'
+    | '/households/'
+    | '/programmes/'
+    | '/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ServicesRoute: typeof ServicesRoute
+  ActivitiesIdRoute: typeof ActivitiesIdRoute
+  BeneficiariesIdRoute: typeof BeneficiariesIdRoute
+  HouseholdsIdRoute: typeof HouseholdsIdRoute
+  ProgrammesIdRoute: typeof ProgrammesIdRoute
+  ProjectsIdRoute: typeof ProjectsIdRoute
+  ActivitiesIndexRoute: typeof ActivitiesIndexRoute
+  BeneficiariesIndexRoute: typeof BeneficiariesIndexRoute
+  HouseholdsIndexRoute: typeof HouseholdsIndexRoute
+  ProgrammesIndexRoute: typeof ProgrammesIndexRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activities/': {
+      id: '/activities/'
+      path: '/activities'
+      fullPath: '/activities/'
+      preLoaderRoute: typeof ActivitiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activities/$id': {
+      id: '/activities/$id'
+      path: '/activities/$id'
+      fullPath: '/activities/$id'
+      preLoaderRoute: typeof ActivitiesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/beneficiaries/': {
+      id: '/beneficiaries/'
+      path: '/beneficiaries'
+      fullPath: '/beneficiaries/'
+      preLoaderRoute: typeof BeneficiariesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/beneficiaries/$id': {
+      id: '/beneficiaries/$id'
+      path: '/beneficiaries/$id'
+      fullPath: '/beneficiaries/$id'
+      preLoaderRoute: typeof BeneficiariesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/households/': {
+      id: '/households/'
+      path: '/households'
+      fullPath: '/households/'
+      preLoaderRoute: typeof HouseholdsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/households/$id': {
+      id: '/households/$id'
+      path: '/households/$id'
+      fullPath: '/households/$id'
+      preLoaderRoute: typeof HouseholdsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programmes/': {
+      id: '/programmes/'
+      path: '/programmes'
+      fullPath: '/programmes/'
+      preLoaderRoute: typeof ProgrammesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programmes/$id': {
+      id: '/programmes/$id'
+      path: '/programmes/$id'
+      fullPath: '/programmes/$id'
+      preLoaderRoute: typeof ProgrammesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$id': {
+      id: '/projects/$id'
+      path: '/projects/$id'
+      fullPath: '/projects/$id'
+      preLoaderRoute: typeof ProjectsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ServicesRoute: ServicesRoute,
+  ActivitiesIdRoute: ActivitiesIdRoute,
+  BeneficiariesIdRoute: BeneficiariesIdRoute,
+  HouseholdsIdRoute: HouseholdsIdRoute,
+  ProgrammesIdRoute: ProgrammesIdRoute,
+  ProjectsIdRoute: ProjectsIdRoute,
+  ActivitiesIndexRoute: ActivitiesIndexRoute,
+  BeneficiariesIndexRoute: BeneficiariesIndexRoute,
+  HouseholdsIndexRoute: HouseholdsIndexRoute,
+  ProgrammesIndexRoute: ProgrammesIndexRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
